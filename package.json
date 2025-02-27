@@ -1,0 +1,16 @@
+{
+  "name": "WCL-log-fetcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wclScrape.js",
+  "scripts": {
+    "start": "node --env-file=.env wclScrape.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
