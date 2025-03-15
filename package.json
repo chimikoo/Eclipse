@@ -1,5 +1,5 @@
 {
-  "name": "WCL-log-fetcher",
+  "name": "wclScraper",
   "version": "1.0.0",
   "description": "",
   "main": "wclScrape.js",

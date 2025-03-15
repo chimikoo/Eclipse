@@ -8,7 +8,7 @@ if (!CLIENT_ID || !CLIENT_SECRET || !ACCESS_TOKEN) {
   process.exit(1);
 }
 
-const REPORT_ID = "vkpJ2qRdrGAWFQaV"; // Replace with your actual report ID
+const REPORT_ID = "dqJC7XF8g9ZNnktG"; // Replace with your actual report ID
 
 const germanDate = new Date().toLocaleDateString("de-DE", { timeZone: "Europe/Berlin" })
   .split(".")
@@ -127,15 +127,24 @@ async function fetchFightData() {
         deathsData.slice(0, 3).forEach(({ timestamp, fight: fightID, targetID }, index) => {  
           const playerName = playerMap[targetID] || "Unknown Player";
           const deathTimeFormatted = formatTime(timestamp, fight.startTime);
-
+        
+          // Standard death URL (focused on event)
           const deathUrl = `https://www.warcraftlogs.com/reports/${REPORT_ID}?fight=${fightID}&type=deaths&start=${timestamp - 5000}&end=${timestamp + 5000}&death=${index + 1}`;
-
+      
+          const position = timestamp - fight.startTime - 5000;
+          
+          // Replay URL (rewinds 5 seconds before the death)
+          const replayUrl = `https://www.warcraftlogs.com/reports/${REPORT_ID}?fight=${fightID}&view=replay&position=${position}`;
+        
           deathsByFight.push({
             player: playerName,
             death_time: deathTimeFormatted,
-            death_url: deathUrl
+            death_url: deathUrl,
+            replay_url: replayUrl
           });
         });
+        
+        
       } else {
         console.warn(`⚠️ No deaths recorded for fight ${fight.name}`);
       }
